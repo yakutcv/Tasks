@@ -15,7 +15,7 @@ public class TestMain {
                 .setName("Andrew")
                 .setLastName("Yasinskiy")
                 .setAnalyzes(Analysis.newAnalysisBuilder()
-                        .setType(BLOOD)
+                        .setType(HORMONES)
                         .setDate(new DateTime(2016, 3, 28, 15, 00))
                         .setReport("Good Analyzes")
                         .build())
@@ -30,11 +30,11 @@ public class TestMain {
         Patient second = Patient.newPatientBuilder()
                 .setBirthDate(new DateTime(1984, 5, 30, 10, 6))
                 .setName("petia")
-                .setLastName("petkin")
+                .setLastName("Petkin")
                 .setAnalyzes(Analysis.newAnalysisBuilder()
                         .setType(BLOOD)
-                        .setDate(new DateTime(2014,3,28,15,00))
-                        .setReport("Good Analyzes")
+                        .setDate(new DateTime(2014, 3, 28, 15, 00))
+                        .setReport("Good Analysis")
                         .build())
                 .setAnalyzes(Analysis.newAnalysisBuilder()
                         .setType(ALLERGY)
@@ -43,10 +43,15 @@ public class TestMain {
                         .build())
                 .build();
 
+
+
+
+
         Hospital hospital = new Hospital("Chernivtsi National Hospital # 1");
         hospital.addPatient(first);
         hospital.addPatient(second);
-        System.out.println(hospital.getByName("petia"));
+
+        System.out.println(hospital.sortByLastName());
 
 
 

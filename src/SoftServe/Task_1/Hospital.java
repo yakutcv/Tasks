@@ -7,10 +7,10 @@ import java.util.*;
  */
 public class Hospital {
 
-    private String titles;
+    private String title;
 
     public Hospital(String titles) {
-        this.titles = titles;
+        this.title = titles;
     }
 
     private Set<Patient> hospital = new HashSet<Patient>();
@@ -41,11 +41,63 @@ public class Hospital {
         return pat;
     }
 
-    //get by date
+    //sort by age
+
+    public List<Patient> sortByAge() {
+        List<Patient> pat = new ArrayList<Patient>(hospital);
+        Collections.sort(pat, new Comparator<Patient>() {
+            @Override
+            public int compare(Patient o1, Patient o2) {
+                return o1.getAge() - o2.getAge();
+            }
+        });
+        return pat;
+    }
+
+
+    //sort by lasName
+    public List<Patient> sortByLastName() {
+        List<Patient> pat = new ArrayList<Patient>(hospital);
+        Collections.sort(pat, new Comparator<Patient>() {
+            @Override
+            public int compare(Patient o1, Patient o2) {
+                return o1.getLastName().compareTo(o2.getLastName());
+            }
+        });
+        return pat;
+    }
+
+
+
+    //get by AnalysisType
+
+    public List<Patient> getByAnalysisType (AnalysisType type) {
+        List<Patient> pat = new ArrayList<Patient>(hospital);
+        Iterator<Patient> i = pat.iterator();
+        while (i.hasNext()) {
+            List<Analysis> a = new ArrayList<>(i.next().getList());
+            for(Analysis anal:a) {
+
+               if(!(anal.getType().equals(type))) break;
+            }
+        }
+        return pat;
+    }
 
 
 
 
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for(Patient value: hospital) {
+            builder.append(value);
+        }
+        String patient = builder.toString();
+
+        return "Hospital" + title + "\n" +
+                patient;
+    }
 
 }

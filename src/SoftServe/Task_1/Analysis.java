@@ -60,4 +60,8 @@ public class Analysis {
         DateTimeFormatter format = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm");
         return  "Type of analysis - " + type +  ", Date - " + date.toString(format) + ", Report - " + report + "." +"\n";
     }
+
+
+
+
 }
