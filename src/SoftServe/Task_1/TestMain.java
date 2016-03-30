@@ -49,28 +49,27 @@ public class TestMain {
                 .setName("sdfg")
                 .setLastName("dfg")
                 .setAnalyzes(Analysis.newAnalysisBuilder()
-                        .setType(HORMONES)
+
                         .setDate(new DateTime(2015, 3, 28, 17, 00))
                         .setReport("Good Analysis")
                         .build())
                 .setAnalyzes(Analysis.newAnalysisBuilder()
-                        .setType(BIOPSY)
+
                         .setDate(new DateTime(2013, 4, 28, 16, 00))
                         .setReport("Good")
                         .build())
                 .build();
 
-
-
-
-
         Hospital hospital = new Hospital("Chernivtsi National Hospital # 1");
         hospital.addPatient(first);
         hospital.addPatient(second);
         hospital.addPatient(third);
+
+        hospital.checkUnpassedAnalysis();
         //System.out.println(hospital);
 
-        System.out.println(hospital.getByAnalisisType(BIOPSY));
+
+        //System.out.println(hospital.getByAnalisisType(BIOPSY));
 
 
 

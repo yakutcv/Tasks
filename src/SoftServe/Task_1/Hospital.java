@@ -20,7 +20,7 @@ public class Hospital {
     private Set<Patient> patients = new HashSet<Patient>();
 
     //add new patient
-    public void addPatient (Patient patient) {
+    public void addPatient(Patient patient) {
         patients.add(patient);
     }
 
@@ -29,7 +29,7 @@ public class Hospital {
         List<Patient> pat = new ArrayList<Patient>(patients);
         Iterator<Patient> i = pat.iterator();
         while (i.hasNext()) {
-            if(!(i.next().getAge()==(age)))i.remove();
+            if (!(i.next().getAge() == (age))) i.remove();
         }
         return pat;
     }
@@ -39,7 +39,7 @@ public class Hospital {
         List<Patient> pat = new ArrayList<Patient>(patients);
         Iterator<Patient> i = pat.iterator();
         while (i.hasNext()) {
-            if(!(i.next().getName().equals(name))) i.remove();
+            if (!(i.next().getName().equals(name))) i.remove();
         }
         return pat;
     }
@@ -78,65 +78,76 @@ public class Hospital {
     }*/
 
 
-   /* //get by AnalysisType stage 2
-    public List<Patient> getByAnalisisType(AnalysisType type){
-        List<Patient> pat = new ArrayList<>();
-        Iterator<Patient> i = patients.iterator();
-        while(i.hasNext()) {
-            Patient p=i.next();
-            List<Analysis> analyzes = p.getList();
-            Iterator<Analysis> b = analyzes.iterator();
-            while(b.hasNext()) {
-                if(b.next().getType().equals(type)) {
-                    pat.add(p);
-                    break;
-                }
-            }
-        }
-        return pat;
-    }
-*/
+    /* //get by AnalysisType stage 2
+     public List<Patient> getByAnalisisType(AnalysisType type){
+         List<Patient> pat = new ArrayList<>();
+         Iterator<Patient> i = patients.iterator();
+         while(i.hasNext()) {
+             Patient p=i.next();
+             List<Analysis> analyzes = p.getList();
+             Iterator<Analysis> b = analyzes.iterator();
+             while(b.hasNext()) {
+                 if(b.next().getType().equals(type)) {
+                     pat.add(p);
+                     break;
+                 }
+             }
+         }
+         return pat;
+     }
+ */
     //get by AnalysisType stage 3
-    public List<Patient> getByAnalisisType(AnalysisType type){
+    public List<Patient> getByAnalisisType(AnalysisType type) {
         List<Patient> pat = new ArrayList<>();
-        for (Patient p : patients){
-            List<Analysis> a = p.getList();
-            for (Analysis b: a) {
-                if(b.getType().equals(type)) {
-                    pat.add(p);
-                }
-            }
-        }
-        return pat;
-    }
-
-
-    //not done Analyzes
-    public void notDoneAnalyzes (AnalysisType type) {
-        boolean flag = false;
-        for(Patient p : patients){
+        for (Patient p : patients) {
             List<Analysis> a = p.getList();
             for (Analysis b : a) {
-                if(b.getType().)
-            }
-        }
-
-        System.out.println();
-    }
-
-       /* while (i.hasNext()) {
-            List<Analysis> a = new ArrayList<>(i.next().getList());
-            for(Analysis anal:a) {
-               if(!(anal.getType().equals(type))) i.remove();
+                if (b.getType().equals(type)) {
+                    pat.add(p);
+                }
             }
         }
         return pat;
-    }*/
+    }
+
+
+    //not passed Analyzes
+    public void checkForPassedAnalysis(AnalysisType type) {
+        boolean flag = true;
+        String s="";
+       m:{
+        for (Patient p : patients) {
+            List<Analysis> a = p.getList();
+            for (Analysis b : a) {
+                if(b.getType().equals(type)) {
+                    s="Analysis " + type + "  passed.";
+                    break m;
+                }
+            }
+        }
+           s="Analysis " + type + " don't passed any patient";
+    }
+        System.out.println(s);
+}
+    public void checkUnpassedAnalysis(){
+        String s="";
+        for (Patient p : patients) {
+            List<Analysis> a = p.getList();
+            for (Analysis b : a) {
+                for(AnalysisType aType : AnalysisType.values()){
+                    if(b.getType().equals(aType))break;
+                    s = "Analysis " + b.getType() + " Never passed";
+                    break;
+                }
+                }
+            }
+        System.out.println(s);
+    }
 
 
 
 
-    //sort by
+
 
 
 
