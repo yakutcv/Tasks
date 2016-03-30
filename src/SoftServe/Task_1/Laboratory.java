@@ -27,10 +27,6 @@ public class Laboratory {
     }
 
 
-
-
-
-
    /* //get by title
     public List<Analyzes> getByTitle (String title) {
         List<Analyzes> a = new ArrayList<Analyzes>(analis);

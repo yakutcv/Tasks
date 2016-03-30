@@ -119,9 +119,6 @@ public class Patient {
             builder.append(value);
         }
         String analyzes = builder.toString();
-
-
-
         return "Patient - "+ getFullName() +
                 ", age - " + getAge() + " years." + "\n" +
                 "The total number of Analyzes: " + getList().size() + "\n" +

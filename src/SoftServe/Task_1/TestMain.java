@@ -44,14 +44,33 @@ public class TestMain {
                 .build();
 
 
+        Patient third = Patient.newPatientBuilder()
+                .setBirthDate(new DateTime(1989, 5, 30, 10, 6))
+                .setName("sdfg")
+                .setLastName("dfg")
+                .setAnalyzes(Analysis.newAnalysisBuilder()
+                        .setType(HORMONES)
+                        .setDate(new DateTime(2015, 3, 28, 17, 00))
+                        .setReport("Good Analysis")
+                        .build())
+                .setAnalyzes(Analysis.newAnalysisBuilder()
+                        .setType(BIOPSY)
+                        .setDate(new DateTime(2013, 4, 28, 16, 00))
+                        .setReport("Good")
+                        .build())
+                .build();
+
+
 
 
 
         Hospital hospital = new Hospital("Chernivtsi National Hospital # 1");
         hospital.addPatient(first);
         hospital.addPatient(second);
+        hospital.addPatient(third);
+        //System.out.println(hospital);
 
-        System.out.println(hospital.sortByLastName());
+        System.out.println(hospital.getByAnalisisType(BIOPSY));
 
 
 
