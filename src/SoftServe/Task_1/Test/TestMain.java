@@ -1,14 +1,24 @@
-package SoftServe.Task_1;
+package SoftServe.Task_1.Test;
 
 /**
  * Created by ayasintc on 3/29/2016.
  */
+
+import SoftServe.Task_1.Entity.Analysis;
+import SoftServe.Task_1.Entity.Patient;
+import SoftServe.Task_1.IO.XMLIO;
+import SoftServe.Task_1.Interfaces.IO;
+import SoftServe.Task_1.Logic.Hospital;
 import org.joda.time.DateTime;
-import static SoftServe.Task_1.AnalysisType.*;
+
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
+
+import static SoftServe.Task_1.Entity.AnalysisType.*;
 
 public class TestMain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws  JAXBException,IOException {
 
         Patient first = Patient.newPatientBuilder()
                 .setBirthDate(new DateTime(1987, 6, 30, 10, 6))
@@ -29,8 +39,8 @@ public class TestMain {
 
         Patient second = Patient.newPatientBuilder()
                 .setBirthDate(new DateTime(1984, 5, 30, 10, 6))
-                .setName("petia")
-                .setLastName("Petkin")
+                .setName("Petia")
+                .setLastName("Petrushkin")
                 .setAnalyzes(Analysis.newAnalysisBuilder()
                         .setType(BLOOD)
                         .setDate(new DateTime(2014, 3, 28, 15, 00))
@@ -46,8 +56,8 @@ public class TestMain {
 
         Patient third = Patient.newPatientBuilder()
                 .setBirthDate(new DateTime(1989, 5, 30, 10, 6))
-                .setName("sdfg")
-                .setLastName("dfg")
+                .setName("Vasia")
+                .setLastName("Pupkin")
                 .setAnalyzes(Analysis.newAnalysisBuilder()
 
                         .setDate(new DateTime(2015, 3, 28, 17, 00))
@@ -60,19 +70,13 @@ public class TestMain {
                         .build())
                 .build();
 
-        Hospital hospital = new Hospital("Chernivtsi National Hospital # 1");
+        Hospital hospital = new Hospital();
         hospital.addPatient(first);
         hospital.addPatient(second);
         hospital.addPatient(third);
 
-        hospital.checkUnpassedAnalysis();
-        //System.out.println(hospital);
-
-
-        //System.out.println(hospital.getByAnalisisType(BIOPSY));
-
-
-
+        IO xmlIO = new XMLIO();
+        xmlIO.writeHospital(hospital, "hospital.xml");
 
 
 

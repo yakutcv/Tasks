@@ -1,4 +1,4 @@
-package SoftServe.Task_1;
+package SoftServe.Task_1.Entity;
 
 /**
  * Created by ayasintc on 3/29/2016.
@@ -6,9 +6,17 @@ package SoftServe.Task_1;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 
-import java.time.Period;
-import java.time.Year;
+import javax.xml.bind.annotation.*;
 import java.util.*;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name="Patient", propOrder = {
+        "name",
+        "lastName",
+        "birthDate",
+        "listAnalyzes"
+})
 
 public class Patient {
 
@@ -17,24 +25,30 @@ public class Patient {
     private DateTime birthDate = new DateTime(2014,3,28,15,00);
     private List<Analysis> listAnalyzes = new ArrayList<>();
 
-    private Patient() {
+    public Patient() {
     }
 
+    @XmlElement
     public DateTime getBirthDate() {
         return birthDate;
     }
 
+    @XmlElementWrapper(name = "List_Analyzes")
+    @XmlElement(name = "Analysis")
     public List<Analysis> getList() {
         return listAnalyzes;
     }
 
+    @XmlElement
     public String getLastName() {
         return lastName;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
+
 
     public int getAge(){
         DateTime date = new DateTime();
@@ -56,7 +70,6 @@ public class Patient {
     //builder
     public static PatientBuilder newPatientBuilder () {
         return new Patient().new PatientBuilder();
-
     }
 
     public class PatientBuilder {

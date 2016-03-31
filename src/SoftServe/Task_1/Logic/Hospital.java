@@ -1,23 +1,27 @@
-package SoftServe.Task_1;
+package SoftServe.Task_1.Logic;
 
-import com.sun.org.apache.bcel.internal.generic.IREM;
-import jdk.nashorn.internal.runtime.ListAdapter;
+import SoftServe.Task_1.Entity.Analysis;
+import SoftServe.Task_1.Entity.AnalysisType;
+import SoftServe.Task_1.Entity.Patient;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by ayasintc on 3/29/2016.
  */
+
+@XmlRootElement(name="Hospital")
 public class Hospital {
 
-    private String title;
-
-    public Hospital(String titles) {
-        this.title = titles;
-    }
-
     private Set<Patient> patients = new HashSet<Patient>();
+
+
+    @XmlElement(name="Patients")
+    public Set<Patient> getPatients() {
+        return patients;
+    }
 
     //add new patient
     public void addPatient(Patient patient) {
@@ -109,8 +113,6 @@ public class Hospital {
         }
         return pat;
     }
-
-
     //not passed Analyzes
     public void checkForPassedAnalysis(AnalysisType type) {
         boolean flag = true;
@@ -144,14 +146,6 @@ public class Hospital {
         System.out.println(s);
     }
 
-
-
-
-
-
-
-
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -160,7 +154,7 @@ public class Hospital {
         }
         String patient = builder.toString();
 
-        return "patients" + title + "\n" +
+        return "patients" + "\n" +
                 patient;
     }
 
