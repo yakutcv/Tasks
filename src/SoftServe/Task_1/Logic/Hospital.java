@@ -13,6 +13,7 @@ import java.util.*;
  */
 
 @XmlRootElement(name="Hospital")
+
 public class Hospital {
 
     private Set<Patient> patients = new HashSet<Patient>();

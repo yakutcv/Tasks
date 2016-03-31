@@ -3,13 +3,19 @@ package SoftServe.Task_1.Entity;
 /**
  * Created by ayasintc on 3/29/2016.
  */
+
+import SoftServe.Task_1.IO.Adapters.DateTimeForXmlAdapter;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import javax.xml.bind.annotation.*;
-import java.util.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
-@XmlRootElement
+@XmlRootElement(name="Patient")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="Patient", propOrder = {
         "name",
@@ -28,23 +34,24 @@ public class Patient {
     public Patient() {
     }
 
-    @XmlElement
+    @XmlJavaTypeAdapter(DateTimeForXmlAdapter.class)
+    @XmlElement(name="birthDate")
     public DateTime getBirthDate() {
         return birthDate;
     }
 
-    @XmlElementWrapper(name = "List_Analyzes")
-    @XmlElement(name = "Analysis")
+    @XmlElementWrapper(name = "Analysis")
+    @XmlElement(name = "listAnalyzes")
     public List<Analysis> getList() {
         return listAnalyzes;
     }
 
-    @XmlElement
+    @XmlElement(name="lastName")
     public String getLastName() {
         return lastName;
     }
 
-    @XmlElement
+    @XmlElement(name = "name")
     public String getName() {
         return name;
     }
@@ -125,12 +132,16 @@ public class Patient {
         return result;
     }*/
 
+
+    //first override
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for(Analysis value: listAnalyzes) {
             builder.append(value);
         }
+        //!
+        DateTimeFormatter format = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
         String analyzes = builder.toString();
         return "Patient - "+ getFullName() +
                 ", age - " + getAge() + " years." + "\n" +
@@ -139,6 +150,15 @@ public class Patient {
                 analyzes;
     }
 
+/*    @Override
+    public String toString() {
+        DateTimeFormatter format = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 
-
+        return "Patient{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate.toString(format) +
+                ", listAnalyzes=" + listAnalyzes +
+                '}';
+    }*/
 }

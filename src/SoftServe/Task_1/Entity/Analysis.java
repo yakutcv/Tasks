@@ -1,11 +1,12 @@
 package SoftServe.Task_1.Entity;
 
+import SoftServe.Task_1.IO.Adapters.DateTimeForXmlAdapter;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 @XmlRootElement(name="Analysis")
@@ -15,23 +16,28 @@ import javax.xml.bind.annotation.XmlType;
         "report"
 })
 public class Analysis {
-
+    @XmlJavaTypeAdapter(DateTimeForXmlAdapter.class)
+    @XmlElement(name = "date")
     private DateTime date = new DateTime(2014,3,28,15,00);
+    @XmlElement(name="report")
     private String report = "Default report";
+    @XmlElement(name="type")
     private AnalysisType type = AnalysisType.DEFAULT;
-
 
     public Analysis(){
 
     }
 
+
     public DateTime getDate() {
         return date;
     }
 
+
     public String getReport() {
         return report;
     }
+
 
     public AnalysisType getType() {
         return type;
@@ -68,7 +74,7 @@ public class Analysis {
 
     @Override
     public String toString() {
-        DateTimeFormatter format = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm");
+        DateTimeFormatter format = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
         return  "Type of analysis - " + type +  ", Date - " + date.toString(format) + ", Report - " + report + "." +"\n";
     }
 

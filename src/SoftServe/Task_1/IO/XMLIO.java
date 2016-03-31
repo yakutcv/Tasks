@@ -21,7 +21,7 @@ public class XMLIO implements IO {
             m.marshal(hospital, new File("src\\SoftServe\\Task_1\\data\\" + file));
             System.out.println("XML file created!");
         }catch (JAXBException e){
-            System.out.println("JAXB wrong " + e.getMessage());
+            System.out.println("JAXB wrong " + e);
         }
     }
 

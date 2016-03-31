@@ -7,7 +7,6 @@ package SoftServe.Task_1.Test;
 import SoftServe.Task_1.Entity.Analysis;
 import SoftServe.Task_1.Entity.Patient;
 import SoftServe.Task_1.IO.XMLIO;
-import SoftServe.Task_1.Interfaces.IO;
 import SoftServe.Task_1.Logic.Hospital;
 import org.joda.time.DateTime;
 
@@ -59,12 +58,12 @@ public class TestMain {
                 .setName("Vasia")
                 .setLastName("Pupkin")
                 .setAnalyzes(Analysis.newAnalysisBuilder()
-
+                        .setType(ALLERGY)
                         .setDate(new DateTime(2015, 3, 28, 17, 00))
                         .setReport("Good Analysis")
                         .build())
                 .setAnalyzes(Analysis.newAnalysisBuilder()
-
+                        .setType(BLOOD)
                         .setDate(new DateTime(2013, 4, 28, 16, 00))
                         .setReport("Good")
                         .build())
@@ -75,7 +74,7 @@ public class TestMain {
         hospital.addPatient(second);
         hospital.addPatient(third);
 
-        IO xmlIO = new XMLIO();
+        XMLIO xmlIO = new XMLIO();
         xmlIO.writeHospital(hospital, "hospital.xml");
 
 
