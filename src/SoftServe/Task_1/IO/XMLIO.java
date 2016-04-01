@@ -31,8 +31,10 @@ public class XMLIO implements IO {
         try{
             JAXBContext jc = JAXBContext.newInstance(Hospital.class);
             Unmarshaller ums = jc.createUnmarshaller();
-            FileReader reader = new FileReader("src\\SoftServe\\Task_1\\data\\" + file);
-            hospital = (Hospital) ums.unmarshal(reader);
+            hospital = (Hospital)ums.unmarshal(new File("src\\SoftServe\\Task_1\\data\\" + file));
+
+            /*FileReader reader = new FileReader("src\\SoftServe\\Task_1\\data\\" + file);
+            hospital = (Hospital) ums.unmarshal(reader);*/
         }catch (JAXBException e) {
             e.printStackTrace();
         }

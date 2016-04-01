@@ -16,18 +16,20 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
         "report"
 })
 public class Analysis {
+
     @XmlJavaTypeAdapter(DateTimeForXmlAdapter.class)
     @XmlElement(name = "date")
     private DateTime date = new DateTime(2014,3,28,15,00);
+
     @XmlElement(name="report")
     private String report = "Default report";
+
     @XmlElement(name="type")
     private AnalysisType type = AnalysisType.DEFAULT;
 
     public Analysis(){
 
     }
-
 
     public DateTime getDate() {
         return date;

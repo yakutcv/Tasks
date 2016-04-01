@@ -5,6 +5,7 @@ import SoftServe.Task_1.Entity.AnalysisType;
 import SoftServe.Task_1.Entity.Patient;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
 
@@ -19,7 +20,7 @@ public class Hospital {
     private Set<Patient> patients = new HashSet<Patient>();
 
 
-    @XmlElement(name="Patients")
+    @XmlElement(name="Patient")
     public Set<Patient> getPatients() {
         return patients;
     }

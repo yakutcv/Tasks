@@ -17,7 +17,8 @@ import java.util.List;
 
 @XmlRootElement(name="Patient")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="Patient", propOrder = {
+   @XmlType(name="Patient", propOrder = {
+        "id",
         "name",
         "lastName",
         "birthDate",
@@ -26,32 +27,50 @@ import java.util.List;
 
 public class Patient {
 
-    private String name = "Default name";
-    private String lastName = "Default lastName";
-    private DateTime birthDate = new DateTime(2014,3,28,15,00);
-    private List<Analysis> listAnalyzes = new ArrayList<>();
-
-    public Patient() {
+    public Patient(long id) {
+        this.id = id;
     }
 
+    @XmlAttribute(name="id")
+    private long id;
+
+    @XmlElement
+    private String name = "Default name";
+
+    @XmlElement
+    private String lastName = "Default lastName";
+
     @XmlJavaTypeAdapter(DateTimeForXmlAdapter.class)
-    @XmlElement(name="birthDate")
+    @XmlElement
+    private DateTime birthDate = new DateTime(2014,3,28,15,00);
+
+    @XmlElementWrapper(name="List_of_Analyzes")
+    @XmlElement(name="Analysis")
+    private List<Analysis> listAnalyzes = new ArrayList<>();
+
+
+
+    public Patient() {
+
+    }
+
+
     public DateTime getBirthDate() {
         return birthDate;
     }
 
-    @XmlElementWrapper(name = "Analysis")
-    @XmlElement(name = "listAnalyzes")
+//    @XmlElementWrapper(name = "Analysis")
+
     public List<Analysis> getList() {
         return listAnalyzes;
     }
 
-    @XmlElement(name="lastName")
+
     public String getLastName() {
         return lastName;
     }
 
-    @XmlElement(name = "name")
+
     public String getName() {
         return name;
     }
@@ -62,6 +81,9 @@ public class Patient {
         return Years.yearsBetween(birthDate, date).getYears();
     }
 
+    public long getId() {
+        return id;
+    }
     //method to format incoming name
     private String formatName (String value) {
         String tmp = value.toLowerCase();
@@ -99,6 +121,10 @@ public class Patient {
             return this;
         }
 
+        public PatientBuilder setId(long id) {
+            Patient.this.id = id;
+            return this;
+        }
         public PatientBuilder setAnalyzes(Analysis analyzes) {
             Patient.this.listAnalyzes.add(analyzes);
             return this;

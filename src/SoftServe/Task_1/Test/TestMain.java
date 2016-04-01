@@ -23,6 +23,7 @@ public class TestMain {
                 .setBirthDate(new DateTime(1987, 6, 30, 10, 6))
                 .setName("Andrew")
                 .setLastName("Yasinskiy")
+                .setId(1)
                 .setAnalyzes(Analysis.newAnalysisBuilder()
                         .setType(HORMONES)
                         .setDate(new DateTime(2016, 3, 28, 15, 00))
@@ -40,6 +41,7 @@ public class TestMain {
                 .setBirthDate(new DateTime(1984, 5, 30, 10, 6))
                 .setName("Petia")
                 .setLastName("Petrushkin")
+                .setId(2)
                 .setAnalyzes(Analysis.newAnalysisBuilder()
                         .setType(BLOOD)
                         .setDate(new DateTime(2014, 3, 28, 15, 00))
@@ -57,6 +59,7 @@ public class TestMain {
                 .setBirthDate(new DateTime(1989, 5, 30, 10, 6))
                 .setName("Vasia")
                 .setLastName("Pupkin")
+                .setId(3)
                 .setAnalyzes(Analysis.newAnalysisBuilder()
                         .setType(ALLERGY)
                         .setDate(new DateTime(2015, 3, 28, 17, 00))
@@ -77,6 +80,8 @@ public class TestMain {
         XMLIO xmlIO = new XMLIO();
         xmlIO.writeHospital(hospital, "hospital.xml");
 
+        Hospital hospitalSecond =  xmlIO.readHospital("hospital.xml");
+        System.out.println(hospitalSecond);
 
 
 
