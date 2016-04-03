@@ -10,15 +10,15 @@ public class DateTimeForXmlAdapter extends XmlAdapter<String, DateTime> {
 
     DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 
-    public DateTime unmarshal(String v) throws Exception {
-        DateTime dateTime = fmt.parseDateTime(v);
-        return dateTime ;
+    public DateTime unmarshal(String value) throws Exception {
+        DateTime dateTime = fmt.parseDateTime(value);
+        return dateTime;
 
     }
 
-    public String marshal(DateTime v) throws Exception {
+    public String marshal(DateTime value) throws Exception {
         DateTimeFormatter fmt2 = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
-        return v.toString(fmt2);
+        return value.toString(fmt2);
     }
 
 }

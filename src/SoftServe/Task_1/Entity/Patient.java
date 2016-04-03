@@ -5,6 +5,7 @@ package SoftServe.Task_1.Entity;
  */
 
 import SoftServe.Task_1.IO.Adapters.DateTimeForXmlAdapter;
+import com.google.gson.annotations.SerializedName;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.joda.time.format.DateTimeFormat;
@@ -32,28 +33,30 @@ public class Patient {
     }
 
     @XmlAttribute(name="id")
-    private long id;
+    private long id = 0;
 
+    @SerializedName("Name")
     @XmlElement
     private String name = "Default name";
 
+    @SerializedName("Last name")
     @XmlElement
     private String lastName = "Default lastName";
 
+    //@JsonAdapter(DateTimeForJSONAdapter.class)
+    @SerializedName("Birthday")
     @XmlJavaTypeAdapter(DateTimeForXmlAdapter.class)
     @XmlElement
     private DateTime birthDate = new DateTime(2014,3,28,15,00);
 
+    @SerializedName("List of Analyzes")
     @XmlElementWrapper(name="List_of_Analyzes")
     @XmlElement(name="Analysis")
     private List<Analysis> listAnalyzes = new ArrayList<>();
 
-
-
     public Patient() {
 
     }
-
 
     public DateTime getBirthDate() {
         return birthDate;

@@ -5,7 +5,10 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
@@ -17,6 +20,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 })
 public class Analysis {
 
+    @XmlAttribute(name="id")
+    private long id;
+    //@JsonAdapter(DateTimeForJSONAdapter.class)
     @XmlJavaTypeAdapter(DateTimeForXmlAdapter.class)
     @XmlElement(name = "date")
     private DateTime date = new DateTime(2014,3,28,15,00);
@@ -27,6 +33,8 @@ public class Analysis {
     @XmlElement(name="type")
     private AnalysisType type = AnalysisType.DEFAULT;
 
+
+
     public Analysis(){
 
     }
@@ -35,6 +43,9 @@ public class Analysis {
         return date;
     }
 
+    public long getId() {
+        return id;
+    }
 
     public String getReport() {
         return report;
@@ -66,6 +77,11 @@ public class Analysis {
 
         public AnalysisBuilder setDate(DateTime date) {
             Analysis.this.date = date;
+            return this;
+        }
+
+        public AnalysisBuilder setId(long id) {
+            Analysis.this.id = id;
             return this;
         }
 

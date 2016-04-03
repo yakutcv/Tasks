@@ -19,7 +19,7 @@ public class Hospital {
 
     private Set<Patient> patients = new HashSet<Patient>();
 
-
+    @XmlElementWrapper(name="Patients")
     @XmlElement(name="Patient")
     public Set<Patient> getPatients() {
         return patients;
@@ -51,7 +51,6 @@ public class Hospital {
     }
 
     //sort by age
-
     public List<Patient> sortByAge() {
         List<Patient> pat = new ArrayList<Patient>(patients);
         Collections.sort(pat, new Comparator<Patient>() {

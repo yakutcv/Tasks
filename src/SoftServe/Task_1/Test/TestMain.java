@@ -6,7 +6,7 @@ package SoftServe.Task_1.Test;
 
 import SoftServe.Task_1.Entity.Analysis;
 import SoftServe.Task_1.Entity.Patient;
-import SoftServe.Task_1.IO.XMLIO;
+import SoftServe.Task_1.IO.SelfFormatIO;
 import SoftServe.Task_1.Logic.Hospital;
 import org.joda.time.DateTime;
 
@@ -17,7 +17,7 @@ import static SoftServe.Task_1.Entity.AnalysisType.*;
 
 public class TestMain {
 
-    public static void main(String[] args) throws  JAXBException,IOException {
+    public static void main(String[] args) throws JAXBException,IOException {
 
         Patient first = Patient.newPatientBuilder()
                 .setBirthDate(new DateTime(1987, 6, 30, 10, 6))
@@ -25,11 +25,13 @@ public class TestMain {
                 .setLastName("Yasinskiy")
                 .setId(1)
                 .setAnalyzes(Analysis.newAnalysisBuilder()
+                        .setId(1)
                         .setType(HORMONES)
                         .setDate(new DateTime(2016, 3, 28, 15, 00))
                         .setReport("Good Analyzes")
                         .build())
                 .setAnalyzes(Analysis.newAnalysisBuilder()
+                        .setId(2)
                         .setType(ALLERGY)
                         .setDate(new DateTime(2016, 4, 28, 15, 00))
                         .setReport("Good")
@@ -43,11 +45,13 @@ public class TestMain {
                 .setLastName("Petrushkin")
                 .setId(2)
                 .setAnalyzes(Analysis.newAnalysisBuilder()
+                        .setId(1)
                         .setType(BLOOD)
                         .setDate(new DateTime(2014, 3, 28, 15, 00))
                         .setReport("Good Analysis")
                         .build())
                 .setAnalyzes(Analysis.newAnalysisBuilder()
+                        .setId(2)
                         .setType(ALLERGY)
                         .setDate(new DateTime(2013, 4, 28, 16, 00))
                         .setReport("Good")
@@ -61,13 +65,15 @@ public class TestMain {
                 .setLastName("Pupkin")
                 .setId(3)
                 .setAnalyzes(Analysis.newAnalysisBuilder()
+                        .setId(1)
                         .setType(ALLERGY)
                         .setDate(new DateTime(2015, 3, 28, 17, 00))
                         .setReport("Good Analysis")
                         .build())
                 .setAnalyzes(Analysis.newAnalysisBuilder()
+                        .setId(2)
                         .setType(BLOOD)
-                        .setDate(new DateTime(2013, 4, 28, 16, 00))
+                        .setDate(new DateTime(2018, 4, 28, 16, 00))
                         .setReport("Good")
                         .build())
                 .build();
@@ -77,11 +83,29 @@ public class TestMain {
         hospital.addPatient(second);
         hospital.addPatient(third);
 
-        XMLIO xmlIO = new XMLIO();
-        xmlIO.writeHospital(hospital, "hospital.xml");
 
-        Hospital hospitalSecond =  xmlIO.readHospital("hospital.xml");
-        System.out.println(hospitalSecond);
+        SelfFormatIO self = new SelfFormatIO();
+        self.writeHospital(hospital,"myTxt.txt");
+
+
+
+
+
+      /*  JSONIO js = new JSONIO();
+        js.writeHospital(hospital, "myJson");
+        js.readHospital("myJson");
+        js.readHospital("myJson");*/
+
+
+        //XMLIO xmlIO = new XMLIO();
+        //xmlIO.writeHospital(hospital, "hospital.xml");
+
+        //Hospital hospitalSecond =  xmlIO.readHospital("hospital.xml");
+       //System.out.println(hospitalSecond.getByAnalisisType(BLOOD));
+
+
+
+
 
 
 

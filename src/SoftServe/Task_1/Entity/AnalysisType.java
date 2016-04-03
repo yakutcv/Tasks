@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlEnumValue;
 /**
  * Created by ayasintc on 3/29/2016.
  */
-public enum AnalysisType {
+public enum AnalysisType  {
     @XmlEnumValue(value = "Blood")
     BLOOD,
     @XmlEnumValue(value = "Urine")
