@@ -7,6 +7,7 @@ import SoftServe.Task_1.Entity.Patient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -15,7 +16,7 @@ import java.util.*;
 
 @XmlRootElement(name="Hospital")
 
-public class Hospital {
+public class Hospital implements Serializable{
 
     private Set<Patient> patients = new HashSet<Patient>();
 

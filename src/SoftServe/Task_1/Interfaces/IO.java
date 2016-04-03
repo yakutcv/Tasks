@@ -10,5 +10,5 @@ public interface IO {
 
     public void writeHospital(Hospital hospital, String file) throws JAXBException, FileNotFoundException, IOException;
 
-    public Hospital readHospital(String file) throws JAXBException, FileNotFoundException, IOException;
+    public Hospital readHospital(String file) throws JAXBException, FileNotFoundException, IOException, ClassNotFoundException;
 }

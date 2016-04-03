@@ -13,6 +13,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +27,13 @@ import java.util.List;
         "listAnalyzes"
 })
 
-public class Patient {
+public class Patient implements Serializable {
 
     public Patient(long id) {
         this.id = id;
     }
+
+    private DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 
     @XmlAttribute(name="id")
     private long id = 0;
@@ -87,6 +90,7 @@ public class Patient {
     public long getId() {
         return id;
     }
+
     //method to format incoming name
     private String formatName (String value) {
         String tmp = value.toLowerCase();
@@ -109,8 +113,8 @@ public class Patient {
         private PatientBuilder() {
         }
 
-        public PatientBuilder setBirthDate(DateTime birthDate) {
-            Patient.this.birthDate = birthDate;
+        public PatientBuilder setBirthDate(String birthDate) {
+            Patient.this.birthDate = formatter.parseDateTime(birthDate);
             return this;
         }
 
@@ -128,8 +132,13 @@ public class Patient {
             Patient.this.id = id;
             return this;
         }
-        public PatientBuilder setAnalyzes(Analysis analyzes) {
+        public PatientBuilder setAnalysis(Analysis analyzes) {
             Patient.this.listAnalyzes.add(analyzes);
+            return this;
+        }
+
+        public PatientBuilder setAnalyzes(List<Analysis> analyzes) {
+            Patient.this.listAnalyzes=analyzes;
             return this;
         }
 
@@ -169,8 +178,6 @@ public class Patient {
         for(Analysis value: listAnalyzes) {
             builder.append(value);
         }
-        //!
-        DateTimeFormatter format = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
         String analyzes = builder.toString();
         return "Patient - "+ getFullName() +
                 ", age - " + getAge() + " years." + "\n" +

@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 
 
 @XmlRootElement(name="Analysis")
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
         "date",
         "report"
 })
-public class Analysis {
+public class Analysis implements Serializable {
 
     @XmlAttribute(name="id")
     private long id;
@@ -33,6 +34,7 @@ public class Analysis {
     @XmlElement(name="type")
     private AnalysisType type = AnalysisType.DEFAULT;
 
+    private DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 
 
     public Analysis(){
@@ -75,8 +77,8 @@ public class Analysis {
             return this;
         }
 
-        public AnalysisBuilder setDate(DateTime date) {
-            Analysis.this.date = date;
+        public AnalysisBuilder setDate(String date) {
+            Analysis.this.date = formatter.parseDateTime(date);
             return this;
         }
 

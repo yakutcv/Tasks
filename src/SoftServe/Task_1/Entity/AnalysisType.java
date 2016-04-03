@@ -1,11 +1,12 @@
 package SoftServe.Task_1.Entity;
 
 import javax.xml.bind.annotation.XmlEnumValue;
+import java.io.Serializable;
 
 /**
  * Created by ayasintc on 3/29/2016.
  */
-public enum AnalysisType  {
+public enum AnalysisType implements Serializable {
     @XmlEnumValue(value = "Blood")
     BLOOD,
     @XmlEnumValue(value = "Urine")

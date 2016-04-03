@@ -8,7 +8,6 @@ import SoftServe.Task_1.Entity.Analysis;
 import SoftServe.Task_1.Entity.Patient;
 import SoftServe.Task_1.IO.SelfFormatIO;
 import SoftServe.Task_1.Logic.Hospital;
-import org.joda.time.DateTime;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -17,64 +16,64 @@ import static SoftServe.Task_1.Entity.AnalysisType.*;
 
 public class TestMain {
 
-    public static void main(String[] args) throws JAXBException,IOException {
+    public static void main(String[] args) throws JAXBException, IOException, ClassNotFoundException {
 
         Patient first = Patient.newPatientBuilder()
-                .setBirthDate(new DateTime(1987, 6, 30, 10, 6))
+                .setBirthDate("04/04/1987 14:00")
                 .setName("Andrew")
                 .setLastName("Yasinskiy")
                 .setId(1)
-                .setAnalyzes(Analysis.newAnalysisBuilder()
+                .setAnalysis(Analysis.newAnalysisBuilder()
                         .setId(1)
                         .setType(HORMONES)
-                        .setDate(new DateTime(2016, 3, 28, 15, 00))
-                        .setReport("Good Analyzes")
+                        .setDate("03/02/2015 14:10")
+                        .setReport("I don't know what is is...")
                         .build())
-                .setAnalyzes(Analysis.newAnalysisBuilder()
+                .setAnalysis(Analysis.newAnalysisBuilder()
                         .setId(2)
                         .setType(ALLERGY)
-                        .setDate(new DateTime(2016, 4, 28, 15, 00))
+                        .setDate("03/02/2015 14:15")
                         .setReport("Good")
                         .build())
                 .build();
 
 
         Patient second = Patient.newPatientBuilder()
-                .setBirthDate(new DateTime(1984, 5, 30, 10, 6))
+                .setBirthDate("04/04/1954 14:00")
                 .setName("Petia")
                 .setLastName("Petrushkin")
                 .setId(2)
-                .setAnalyzes(Analysis.newAnalysisBuilder()
+                .setAnalysis(Analysis.newAnalysisBuilder()
                         .setId(1)
                         .setType(BLOOD)
-                        .setDate(new DateTime(2014, 3, 28, 15, 00))
-                        .setReport("Good Analysis")
+                        .setDate("03/01/2016 14:10")
+                        .setReport("Yeap")
                         .build())
-                .setAnalyzes(Analysis.newAnalysisBuilder()
+                .setAnalysis(Analysis.newAnalysisBuilder()
                         .setId(2)
                         .setType(ALLERGY)
-                        .setDate(new DateTime(2013, 4, 28, 16, 00))
-                        .setReport("Good")
+                        .setDate("03/01/2016 14:15")
+                        .setReport("Mu-ha-ha")
                         .build())
                 .build();
 
 
         Patient third = Patient.newPatientBuilder()
-                .setBirthDate(new DateTime(1989, 5, 30, 10, 6))
+                .setBirthDate("04/04/1998 14:00")
                 .setName("Vasia")
                 .setLastName("Pupkin")
                 .setId(3)
-                .setAnalyzes(Analysis.newAnalysisBuilder()
+                .setAnalysis(Analysis.newAnalysisBuilder()
                         .setId(1)
                         .setType(ALLERGY)
-                        .setDate(new DateTime(2015, 3, 28, 17, 00))
-                        .setReport("Good Analysis")
+                        .setDate("02/01/2016 14:40")
+                        .setReport("Good Analysis.Very good!")
                         .build())
-                .setAnalyzes(Analysis.newAnalysisBuilder()
+                .setAnalysis(Analysis.newAnalysisBuilder()
                         .setId(2)
                         .setType(BLOOD)
-                        .setDate(new DateTime(2018, 4, 28, 16, 00))
-                        .setReport("Good")
+                        .setDate("02/01/2016 14:44")
+                        .setReport("Simple good")
                         .build())
                 .build();
 
@@ -86,6 +85,14 @@ public class TestMain {
 
         SelfFormatIO self = new SelfFormatIO();
         self.writeHospital(hospital,"myTxt.txt");
+
+
+
+        System.out.println(self.readHospital("myTxt.txt"));
+
+
+
+
 
 
 
