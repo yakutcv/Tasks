@@ -6,6 +6,7 @@ package SoftServe.Task_1.Test;
 
 import SoftServe.Task_1.Entity.Analysis;
 import SoftServe.Task_1.Entity.Patient;
+import SoftServe.Task_1.IO.Exceptions.SelfFormatException;
 import SoftServe.Task_1.IO.SelfFormatIO;
 import SoftServe.Task_1.Logic.Hospital;
 
@@ -16,17 +17,17 @@ import static SoftServe.Task_1.Entity.AnalysisType.*;
 
 public class TestMain {
 
-    public static void main(String[] args) throws JAXBException, IOException, ClassNotFoundException {
+    public static void main(String[] args) throws JAXBException, IOException, ClassNotFoundException, SelfFormatException {
 
         Patient first = Patient.newPatientBuilder()
-                .setBirthDate("04/04/1987 14:00")
+                .setBirthDate("04/04/1987")
                 .setName("Andrew")
                 .setLastName("Yasinskiy")
                 .setId(1)
                 .setAnalysis(Analysis.newAnalysisBuilder()
                         .setId(1)
                         .setType(HORMONES)
-                        .setDate("03/02/2015 14:10")
+                        .setDate("03/02/2015 14:50")
                         .setReport("I don't know what is is...")
                         .build())
                 .setAnalysis(Analysis.newAnalysisBuilder()
@@ -39,14 +40,14 @@ public class TestMain {
 
 
         Patient second = Patient.newPatientBuilder()
-                .setBirthDate("04/04/1954 14:00")
+                .setBirthDate("04/04/1954")
                 .setName("Petia")
                 .setLastName("Petrushkin")
                 .setId(2)
                 .setAnalysis(Analysis.newAnalysisBuilder()
                         .setId(1)
                         .setType(BLOOD)
-                        .setDate("03/01/2016 14:10")
+                        .setDate("03/01/2014 14:15")
                         .setReport("Yeap")
                         .build())
                 .setAnalysis(Analysis.newAnalysisBuilder()
@@ -59,7 +60,7 @@ public class TestMain {
 
 
         Patient third = Patient.newPatientBuilder()
-                .setBirthDate("04/04/1998 14:00")
+                .setBirthDate("04/04/1998")
                 .setName("Vasia")
                 .setLastName("Pupkin")
                 .setId(3)
@@ -84,11 +85,16 @@ public class TestMain {
 
 
         SelfFormatIO self = new SelfFormatIO();
-        self.writeHospital(hospital,"myTxt.txt");
+        //self.writeHospital(hospital,"myTxt.txt");
+        self.readHospital("myTxt.txt");
+
+        //Hospital hospital14 = self.readHospital("myTxt.txt");
+        //System.out.println(hospital14);
 
 
+        //System.out.println(self.readHospital("myTxt.txt"));
 
-        System.out.println(self.readHospital("myTxt.txt"));
+
 
 
 

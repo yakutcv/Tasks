@@ -33,7 +33,7 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    private DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
 
     @XmlAttribute(name="id")
     private long id = 0;
