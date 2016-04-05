@@ -36,13 +36,16 @@ public class Analysis implements Serializable {
 
     private DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 
-
     public Analysis(){
 
     }
 
     public DateTime getDate() {
         return date;
+    }
+
+    public String getDateInString() {
+        return date.toString(formatter);
     }
 
     public long getId() {

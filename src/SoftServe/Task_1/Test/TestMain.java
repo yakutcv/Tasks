@@ -7,11 +7,14 @@ package SoftServe.Task_1.Test;
 import SoftServe.Task_1.Entity.Analysis;
 import SoftServe.Task_1.Entity.Patient;
 import SoftServe.Task_1.IO.Exceptions.SelfFormatException;
+import SoftServe.Task_1.IO.SQL.AnalyzesDAO;
 import SoftServe.Task_1.IO.SQL.PatientDAO;
 import SoftServe.Task_1.IO.SQL.SQLConnector;
 import SoftServe.Task_1.IO.SelfFormatIO;
 import SoftServe.Task_1.Logic.Hospital;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
@@ -63,9 +66,9 @@ public class TestMain {
 
         Patient third = Patient.newPatientBuilder()
                 .setBirthDate("04/04/1998")
-                .setName("Vasia")
-                .setLastName("Pupkin")
-                .setId(3)
+                .setName("Jora")
+                .setLastName("Jorkin")
+                .setId(4)
                 .setAnalysis(Analysis.newAnalysisBuilder()
                         .setId(1)
                         .setType(ALLERGY)
@@ -85,6 +88,14 @@ public class TestMain {
         hospital.addPatient(second);
         hospital.addPatient(third);
 
+        Analysis a = Analysis.newAnalysisBuilder()
+                .setId(1)
+                .setType(ALLERGY)
+                .setDate("02/01/2016 14:40")
+                .setReport("Good Analysis.Very good!")
+                .build();
+        System.out.println(a.getDateInString());
+
 
 
         //System.out.println(third.getBirthDateInString());
@@ -101,17 +112,29 @@ public class TestMain {
         //Hospital hospitalSecond =  xmlIO.readHospital("hospital.xml");
         //System.out.println(hospitalSecond.getByAnalisisType(BLOOD));*/
 
-
-
         //SelfFormatIO self = new SelfFormatIO();
         //self.writeHospital(hospital,"myTxt.txt");
 
         //Hospital hosp2 = self.readHospital("myTxt.txt");
         //System.out.println(hosp2);
-
-
         PatientDAO ptDAO = new PatientDAO();
-        ptDAO.createPatientTable();
+        //ptDAO.removePatientTable();
+        //ptDAO.removePatientTable();
+        //ptDAO.createPatientTable();
+        //ptDAO.addPatient(first);
+        //ptDAO.addListPatients(hosp2.getPatients());
+        Hospital hospital1 = new Hospital();
+        //hospital1.setPatients(ptDAO.readAllPatients());
+        //ptDAO.updatePatient(third);
+        //ptDAO.createPatientTable();
+        //ptDAO.createPatientTable();
+        //ptDAO.addPatient(third);
+        //ptDAO.removePatientByName("Andrew");
+
+        AnalyzesDAO ADAO = new AnalyzesDAO();
+        ADAO.createAnalyzesTable();
+
+        //ADAO.deletePatientTable();
 
 
 

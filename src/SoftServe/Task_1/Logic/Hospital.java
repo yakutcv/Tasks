@@ -26,7 +26,11 @@ public class Hospital implements Serializable{
         return patients;
     }
 
+    public void setPatients(Set<Patient> patients) {
+        this.patients = patients;
+    }
     //add new patient
+
     public void addPatient(Patient patient) {
         patients.add(patient);
     }
