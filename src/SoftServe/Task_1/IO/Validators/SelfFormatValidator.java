@@ -1,12 +1,11 @@
 package SoftServe.Task_1.IO.Validators;
 
+import SoftServe.Task_1.Entity.AnalysisType;
 import SoftServe.Task_1.IO.Exceptions.SelfFormatException;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,31 +15,39 @@ import static SoftServe.Task_1.IO.Exceptions.ExceptionList.*;
 public class SelfFormatValidator {
 
     private static final String NAME_PATTERN = "[A-Z,a-z]+";
+    private static final String ANALYZES_PATTERN = "\\s([A-Z,a-z]{1,})\\s\\((.*)\\)\\s(.*)";
     private static final String INPUT_PATTERN = "(([A-Z,a-z]{1,})\\s([A-Z,a-z]{1,})\\s\\(.*\\))\\:\\{(\\w*\\s\\(.*\\)\\s(\\w*\\s*){1,}\\,|\\,){1,}\\s*\\}";
 
     private static DateTimeFormatter format = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
     private static DateTimeFormatter format2 = DateTimeFormat.forPattern("dd/MM/yyyy");
 
-    public static boolean validPatient(List<String> string) throws SelfFormatException {
-        List<String> tmpList = string;
+    public static boolean validPatient(List<String> patients) throws SelfFormatException {
+        List<String> tmpPatietns = patients;
 
-        if(!validName(tmpList.get(0))) {
+        if(!validName(tmpPatietns.get(0))) {
             throw new SelfFormatException(INVALID_NAME);
-            }
-        if(!validName(tmpList.get(1))) {
+        }
+        if(!validName(tmpPatietns.get(1))) {
             throw new SelfFormatException(INVALID_LAST_NAME);
-            }
-        if(!validBirthDate(tmpList.get(2))) {
+        }
+        if(!validBirthDate(tmpPatietns.get(2))) {
             throw new SelfFormatException(INVALID_BIRTH_DATE);
         }
 
-        //System.out.println(tmpList.get(3));
-
-        String ff[] = tmpList.get(3).split(",");
-        System.out.println(ff.length);
-
-
-
+        //analyzes
+        String tmpAnalyzes[] = tmpPatietns.get(3).split(",");
+        Pattern pat = Pattern.compile(ANALYZES_PATTERN);
+        for(String st : tmpAnalyzes) {
+            if(!st.isEmpty()) {
+                try{
+                    Matcher mat = pat.matcher(st);
+                    mat.matches();
+                    validAnalysisType(mat.group(1));
+                    validAnalyzesDate(mat.group(2));
+                }catch (SelfFormatException e) {
+                }
+            }
+        }
         return true;
     }
 
@@ -48,9 +55,16 @@ public class SelfFormatValidator {
         try{
             DateTime dateTime = DateTime.parse(date, format2);
         }catch (IllegalArgumentException e) {
-            System.out.println("Invalid date format!");
-            e.printStackTrace();
             return false;
+        }
+        return true;
+    }
+
+    public static boolean validAnalyzesDate(String date) throws SelfFormatException {
+        try{
+            DateTime dateTime = DateTime.parse(date, format);
+        }catch (Exception e) {
+            throw new SelfFormatException(INVALID_ANALYZES_DATE);
         }
         return true;
     }
@@ -67,20 +81,16 @@ public class SelfFormatValidator {
         }else {
             return false;
         }
-
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    public static boolean validAnalysisType (String string) throws SelfFormatException {
+        try{
+            AnalysisType.valueOf(string);
+            return true;
+        }catch (Exception e) {
+            throw new SelfFormatException(INVALID_ANALYZES_TYPE);
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -88,7 +98,13 @@ public class SelfFormatValidator {
         String strt = "Andrew Yasinskiy (04/04/1987 14:00):{HORMONES (03/02/2015 14:10) Good Analyzes, ALLERGY (03/02/2015 14:15) Good, }";
 
         String string = "Petia Petrushkin (04/04/1954):{BLOOD (03/01/2014 14:15) Yeap, ALLERGY (03/01/2016 14:15) Mu-ha-ha, }";
-        String string2 = "Petia";
+        String string2 = " HORMONES (03/02/2015 14:50) I don't know what is is...";
+
+        String ffff = " I don't know what is is";
+
+        //ALLERGY (02/01/2016 14:40) Good Analysis.Very good!, BLOOD (02/01/2016 14:44) Simple good,}
+
+        String patternsss = "(([A-Z,a-z]{1,})\\s([A-Z,a-z]{1,})\\s\\(.*\\))\\:\\{(\\w*\\s\\(.*\\)\\s(\\w*\\s*){1,}\\,|\\,){1,}\\s*\\}";
 
 
         String pat5 = "(([A-Z,a-z]{1,})\\s([A-Z,a-z]{1,})\\s\\(.*\\))\\:\\{(\\w*\\s\\(.*\\)\\s(\\w*\\s*){1,}\\,|\\s){1,}\\s*\\}";
@@ -98,15 +114,17 @@ public class SelfFormatValidator {
 
 
 
-        //Vasia Pupkin (04/04p/1998):{}
 
-        Pattern p = Pattern.compile(NAME_PATTERN);
+        String analyzes = "\\s([A-Z]{1,})\\s\\((.*)\\)\\s(.*)";
+
+        Pattern p = Pattern.compile(analyzes);
         Matcher m = p.matcher(string2);
 
 
 
         System.out.println(m.matches());
         System.out.println(m.groupCount());
+        //System.out.println(m.group(0));
 
 
 

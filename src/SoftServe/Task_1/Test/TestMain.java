@@ -86,20 +86,16 @@ public class TestMain {
 
         SelfFormatIO self = new SelfFormatIO();
         //self.writeHospital(hospital,"myTxt.txt");
-        self.readHospital("myTxt.txt");
+
+        Hospital hosp2 = self.readHospital("myTxt.txt");
+        System.out.println(hosp2);
+
 
         //Hospital hospital14 = self.readHospital("myTxt.txt");
         //System.out.println(hospital14);
 
 
         //System.out.println(self.readHospital("myTxt.txt"));
-
-
-
-
-
-
-
 
 
 
