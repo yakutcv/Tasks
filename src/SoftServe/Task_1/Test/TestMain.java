@@ -7,6 +7,8 @@ package SoftServe.Task_1.Test;
 import SoftServe.Task_1.Entity.Analysis;
 import SoftServe.Task_1.Entity.Patient;
 import SoftServe.Task_1.IO.Exceptions.SelfFormatException;
+import SoftServe.Task_1.IO.SQL.PatientDAO;
+import SoftServe.Task_1.IO.SQL.SQLConnector;
 import SoftServe.Task_1.IO.SelfFormatIO;
 import SoftServe.Task_1.Logic.Hospital;
 
@@ -17,7 +19,7 @@ import static SoftServe.Task_1.Entity.AnalysisType.*;
 
 public class TestMain {
 
-    public static void main(String[] args) throws JAXBException, IOException, ClassNotFoundException, SelfFormatException {
+    public static void main(String[] args) throws Exception {
 
         Patient first = Patient.newPatientBuilder()
                 .setBirthDate("04/04/1987")
@@ -84,11 +86,35 @@ public class TestMain {
         hospital.addPatient(third);
 
 
-        SelfFormatIO self = new SelfFormatIO();
+
+        //System.out.println(third.getBirthDateInString());
+
+        /*JSONIO js = new JSONIO();
+        js.writeHospital(hospital, "myJson");
+        js.readHospital("myJson");
+        js.readHospital("myJson");*//*
+
+
+        //XMLIO xmlIO = new XMLIO();
+        //xmlIO.writeHospital(hospital, "hospital.xml");
+
+        //Hospital hospitalSecond =  xmlIO.readHospital("hospital.xml");
+        //System.out.println(hospitalSecond.getByAnalisisType(BLOOD));*/
+
+
+
+        //SelfFormatIO self = new SelfFormatIO();
         //self.writeHospital(hospital,"myTxt.txt");
 
-        Hospital hosp2 = self.readHospital("myTxt.txt");
-        System.out.println(hosp2);
+        //Hospital hosp2 = self.readHospital("myTxt.txt");
+        //System.out.println(hosp2);
+
+
+        PatientDAO ptDAO = new PatientDAO();
+        ptDAO.createPatientTable();
+
+
+
 
 
         //Hospital hospital14 = self.readHospital("myTxt.txt");
@@ -100,17 +126,7 @@ public class TestMain {
 
 
 
-      /*  JSONIO js = new JSONIO();
-        js.writeHospital(hospital, "myJson");
-        js.readHospital("myJson");
-        js.readHospital("myJson");*/
 
-
-        //XMLIO xmlIO = new XMLIO();
-        //xmlIO.writeHospital(hospital, "hospital.xml");
-
-        //Hospital hospitalSecond =  xmlIO.readHospital("hospital.xml");
-       //System.out.println(hospitalSecond.getByAnalisisType(BLOOD));
 
 
 

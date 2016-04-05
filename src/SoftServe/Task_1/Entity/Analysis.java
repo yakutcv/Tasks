@@ -94,8 +94,7 @@ public class Analysis implements Serializable {
 
     @Override
     public String toString() {
-        DateTimeFormatter format = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
-        return  "Type of analysis - " + type +  ", Date - " + date.toString(format) + ", Report - " + report + "." +"\n";
+        return "Type of analysis - " + type +  ", Date - " + date.toString(formatter) + ", Report - " + report + "." +"\n";
     }
 
 

@@ -81,6 +81,9 @@ public class Patient implements Serializable {
         return name;
     }
 
+    public String getBirthDateInString(){
+        return birthDate.toString(formatter);
+    }
 
     public int getAge(){
         DateTime date = new DateTime();

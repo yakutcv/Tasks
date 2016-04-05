@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://D:/AndrewJass/Library/joda-time-2.9.3.jar!/" />
       <root url="jar://D:/AndrewJass/Library/gson-2.6.2.jar!/" />
+      <root url="jar://D:/AndrewJass/Library/mysql-connector-java-5.1.38.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

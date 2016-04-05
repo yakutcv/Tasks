@@ -92,6 +92,7 @@ public class SelfFormatIO implements IO {
             }
         } catch (IOException e) {
             System.out.println("Invalid format input file!" + e);
+
         }
 
         for(String s : tmpHospital) {
@@ -126,7 +127,6 @@ public class SelfFormatIO implements IO {
     }
         return hospital;
     }
-
 
 
     //method to convert output Hospital to correct String format
