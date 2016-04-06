@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 public class PatientDAO {
 
     SQLConnector connector = new SQLConnector();
-    private static Statement statement ;
+    private static Statement statement;
     private static PreparedStatement preparedStatement;
     private static ResultSet resultSet;
 
 
-    private String CREATE_PATIENT_TABLE = "CREATE TABLE Patients (id int NOT NULL, Name text, Last_name text, Birth_date text, PRIMARY KEY (id))";
+    private String CREATE_PATIENT_TABLE = "CREATE TABLE Patients (id int NOT NULL AUTO_INCREMENT, Name text, Last_name text, Birth_date text, PRIMARY KEY (id))";
     private String DELETE_PATIENT_TABLE = "DROP TABLE Patients";
     private String CREATE_PATIENT = "INSERT INTO Patients (Name, Last_name, Birth_date) VALUES (?, ?, ?)";
 
@@ -47,7 +47,7 @@ public class PatientDAO {
         return false;
     }
 
-    public boolean removePatientTable() {
+    public boolean deletePatientTable() {
         try{
             connector.connect();
             statement = connector.getConnection().createStatement();
@@ -96,18 +96,44 @@ public class PatientDAO {
         return false;
     }
 
-    public boolean removePatientByName(String name) {
-        String DELETE_PATIENT = "DELETE FROM Patients WHERE Name =?";
+    public boolean deletePatientById(long id) {
+        String DELETE_PATIENT = "DELETE FROM Patients WHERE id =?";
         try{
             connector.connect();
             preparedStatement = connector.getConnection().prepareStatement(DELETE_PATIENT);
-            preparedStatement.setString(1, name);
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-            System.out.println("Patient with name " + name + " was deleted!");
+            System.out.println("Patient with id " + id + " was deleted!");
             return true;
         }catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Couldn't find name: " + name);
+            System.out.println("Couldn't find patient id: " + id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                preparedStatement.close();
+                connector.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public boolean updatePatient (Patient patient){
+        String UPDATE_PATIENT = "UPDATE Patients SET Name =?, Last_name=?, Birth_date=? WHERE id =?";
+        try{
+            connector.connect();
+            preparedStatement = connector.getConnection().prepareStatement(UPDATE_PATIENT);
+            preparedStatement.setString(1, patient.getName());
+            preparedStatement.setString(2, patient.getLastName());
+            preparedStatement.setString(3,patient.getBirthDateInString());
+            preparedStatement.setLong(4, patient.getId());
+            preparedStatement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Couldn't update patient " + patient);
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -150,40 +176,13 @@ public class PatientDAO {
         return false;
     }
 
-    public boolean updatePatient (Patient patient){
-        String UPDATE_PATIENT = "UPDATE Patients SET Name =?, Last_name=?, Birth_date=? WHERE id =?";
-        try{
-            connector.connect();
-            preparedStatement = connector.getConnection().prepareStatement(UPDATE_PATIENT);
-            preparedStatement.setString(1, patient.getName());
-            preparedStatement.setString(2, patient.getLastName());
-            preparedStatement.setString(3,patient.getBirthDateInString());
-            preparedStatement.setLong(4, patient.getId());
-            preparedStatement.executeUpdate();
-        }catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Couldn't update patient " + patient);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                preparedStatement.close();
-                connector.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-
-    }
-
-    public Patient readPatientByName(String name) {
-        String READ_PATIENT_BY_NAME= "SELECT * FROM Patients WHERE Name =?";
+    public Patient readPatientByName(long id) {
+        String READ_PATIENT_BY_NAME= "SELECT * FROM Patients WHERE id =?";
         Patient patient = null;
         try{
             connector.connect();
             preparedStatement = connector.getConnection().prepareStatement(READ_PATIENT_BY_NAME);
-            preparedStatement.setString(1, name);
+            preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 patient = Patient.newPatientBuilder()
@@ -195,7 +194,7 @@ public class PatientDAO {
             }
         }catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Couldn't find patient with name: " + name);
+            System.out.println("Couldn't find patient with name: " + id);
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
@@ -242,4 +241,6 @@ public class PatientDAO {
         }
         return patients;
     }
+
+
 }

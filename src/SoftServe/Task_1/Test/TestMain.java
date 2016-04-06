@@ -17,6 +17,8 @@ import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static SoftServe.Task_1.Entity.AnalysisType.*;
 
@@ -88,14 +90,29 @@ public class TestMain {
         hospital.addPatient(second);
         hospital.addPatient(third);
 
-        Analysis a = Analysis.newAnalysisBuilder()
-                .setId(1)
-                .setType(ALLERGY)
-                .setDate("02/01/2016 14:40")
-                .setReport("Good Analysis.Very good!")
+        Analysis analysis_1 = Analysis.newAnalysisBuilder()
+                .setId(2)
+                .setType(BIOPSY)
+                .setDate("02/01/2016 13:10")
+                .setReport("Analysis fdf")
                 .build();
-        System.out.println(a.getDateInString());
 
+        Analysis analysis_2 = Analysis.newAnalysisBuilder()
+                .setType(HORMONES)
+                .setDate("04/02/2016 13:10")
+                .setReport("Analysis GOOD")
+                .build();
+
+        Analysis analysis_3 = Analysis.newAnalysisBuilder()
+                .setType(HORMONES)
+                .setDate("04/02/2016 13:10")
+                .setReport("Analysis GOOD")
+                .build();
+
+        List<Analysis> listAnalysis = new ArrayList<>();
+        listAnalysis.add(analysis_1);
+        listAnalysis.add(analysis_2);
+        listAnalysis.add(analysis_3);
 
 
         //System.out.println(third.getBirthDateInString());
@@ -118,7 +135,7 @@ public class TestMain {
         //Hospital hosp2 = self.readHospital("myTxt.txt");
         //System.out.println(hosp2);
         PatientDAO ptDAO = new PatientDAO();
-        //ptDAO.removePatientTable();
+        //ptDAO.deletePatientTable();
         //ptDAO.removePatientTable();
         //ptDAO.createPatientTable();
         //ptDAO.addPatient(first);
@@ -127,14 +144,18 @@ public class TestMain {
         //hospital1.setPatients(ptDAO.readAllPatients());
         //ptDAO.updatePatient(third);
         //ptDAO.createPatientTable();
-        //ptDAO.createPatientTable();
-        //ptDAO.addPatient(third);
-        //ptDAO.removePatientByName("Andrew");
+
+        //ptDAO.addPatient(first);
+        ptDAO.deletePatientById(2);
 
         AnalyzesDAO ADAO = new AnalyzesDAO();
-        ADAO.createAnalyzesTable();
-
         //ADAO.deletePatientTable();
+        //ADAO.createAnalyzesTable();
+        //ADAO.addAnalysis(analysis_1, first);
+        ADAO.addListAnalysis(listAnalysis, first);
+        //ADAO.deletePatientTable();
+        //ADAO.updateAnalysis(analysis_1);
+        //ADAO.deleteAnalysisById(1);
 
 
 
@@ -143,6 +164,7 @@ public class TestMain {
         //Hospital hospital14 = self.readHospital("myTxt.txt");
         //System.out.println(hospital14);
 
+        //System.out.println(String.valueOf(first.getId()));
 
         //System.out.println(self.readHospital("myTxt.txt"));
 
